@@ -37,3 +37,14 @@ def db_update(student_id, data):
      conn.commit()
      conn.close()
      return db_get_one(student_id)
+
+def db_delete(student_id):
+    student = db_get_one(student_id)
+    if not student:
+         return None
+
+    conn = get_connection()
+    conn.execute("DELETE FROM students WHERE id=?", (student_id,))
+    conn.commit()
+    conn.close()
+    return student
